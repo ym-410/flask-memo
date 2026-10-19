@@ -24,24 +24,41 @@ with app.app_context():
 @app.route("/")
 def index():
     items = MemoItem.query.order_by(MemoItem.title).all()
-    items.insert(0, MemoItem(id=0, title="新規作成", body=""))
     return render_template("list.html", items=items)
 
-@app.route("/memo/<int:id>", methods=["GET", "POST"])
-def memo(id: int):
-    # DBからメモ取得 5
-    if id == 0:
-        it = MemoItem(title="無題", body="")
-
-    else:
-        it = db.session.get(MemoItem, id)
-
-        if it is None:
-            return "メモが見つかりません", 404
+@app.route("/memo/new", methods=["GET", "POST"])
+def new_memo():
+    it = MemoItem(title="無題", body="")
 
     if request.method == "POST":
         it.title = request.form.get("title", "")
         it.body = request.form.get("body", "")
+
+        if not it.title.strip():
+            return render_template(
+                "memo.html",
+                it=it,
+                error="タイトルは空にできません"
+            ), 400
+
+        db.session.add(it)
+        db.session.commit()
+        return redirect(url_for("index"))
+    
+    return render_template("memo.html", it=it)
+
+@app.route("/memo/<int:id>", methods=["GET", "POST"])
+def memo(id: int):
+    # DBからメモ取得 5
+    it = db.session.get(MemoItem, id)
+
+    if it is None:
+        return "メモが見つかりません", 404
+
+    if request.method == "POST":
+        it.title = request.form.get("title", "")
+        it.body = request.form.get("body", "")
+
         if not it.title.strip():
             return render_template(
                 "memo.html",
@@ -49,9 +66,6 @@ def memo(id: int):
                 error="タイトルは空にできません",
             ), 400
 
-        # 新規作成のときのみINSERT
-        if id == 0:
-            db.session.add(it)
         db.session.commit()
         return redirect(url_for("index"))
 
