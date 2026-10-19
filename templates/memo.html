@@ -3,6 +3,11 @@
 <!-- base.html の contents を書き換える -->
 {% block contents %}
 <div class="card p-3">
+    {% if error %}
+        <p class="notification is-danger" role="alert">
+            {{ error }}
+        </p>
+    {% endif %}
     <form method="POST">
         <label class="label" for="title">タイトル:</label>
         <input id="title" name="title" type="text"
