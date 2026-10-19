@@ -40,10 +40,14 @@ def memo(id: int):
             return "メモが見つかりません", 404
 
     if request.method == "POST":
-        it.title = request.form.get("title", "__無題__")
+        it.title = request.form.get("title", "")
         it.body = request.form.get("body", "")
-        if it.title == "":
-            return "タイトルは空にはできません"
+        if not it.title.strip():
+            return render_template(
+                "memo.html",
+                it=it,
+                error="タイトルは空にできません",
+            ), 400
 
         # 新規作成のときのみINSERT
         if id == 0:
