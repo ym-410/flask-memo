@@ -8,11 +8,18 @@
     <title>Memo App</title>
 </head>
 <body class="p-3">
-    <div class="p-5 has-background-info"><!-- タイトル -->
-        <h1 class="is-size-3">Memo App</h1>
-    </div>
-    {% block contents %}
-    <!-- ここに contents が表示される -->
-    {% endblock %}
+    <header class="mb-4">
+        <div class="p-5 has-background-info is-flex is-align-items-center is-justify-content-space-between">
+            <h1 class="is-size-3">Memo App</h1>
+            <a href="{{ url_for('new_memo') }}" class="button is-light">新規作成</a>
+        </div>
+    </header>
+    <main>
+
+        {% block contents %}
+        <!-- ここに contents が表示される -->
+        {% endblock %}
+    </main>
+
 </body>
 </html>
