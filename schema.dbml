@@ -1,0 +1,5 @@
+Table memo_item {
+  id integer [pk]
+  title text [not null]
+  body text [not null]
+}
