@@ -12,5 +12,8 @@
                   class="textarea">{{ it.body }}</textarea>
         <input type="submit" value="保存" class="button is-primary">
     </form>
+    <a href="{{ url_for('index') }}" class="button mt-3">
+        一覧へ戻る
+    </a>
 </div>
 {% endblock %}

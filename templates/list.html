@@ -8,7 +8,7 @@
     <ul class='grid'>
         {% for it in items %}
         <li class="cell card p-4 m-2">
-            <a href="/memo/{{ it.id }}">
+            <a href="{{ url_for('memo', id=it.id) }}">
                 {% if it.id != 0 %}✎{% endif %}
                 {{ it.title }}
             </a>
