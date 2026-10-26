@@ -1,26 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Memo App</title>
 </head>
-<body class="p-3">
-    <header class="mb-4">
-        <div class="p-5 has-background-info is-flex is-align-items-center is-justify-content-space-between">
-            <h1 class="is-size-3">Memo App</h1>
-            <a href="{{ url_for('new_memo') }}" class="button is-light">新規作成</a>
-        </div>
+<body>
+    <header>
+        <h1>Memo App</h1>
     </header>
     <main>
-
         {% block contents %}
-        <!-- ここに contents が表示される -->
         {% endblock %}
-        
     </main>
-
 </body>
 </html>
