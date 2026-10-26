@@ -75,5 +75,14 @@ def memo(id: int):
         it=it
     )
 
+@app.post("/memo/<int:id>/delete")
+def delete_memo(id):
+    it = db.get_or_404(MemoItem, id)
+
+    db.session.delete(it)
+    db.session.commit()
+
+    return redirect(url_for("index"))
+
 if __name__ == "__main__":
     app.run(debug=True, port=8888)

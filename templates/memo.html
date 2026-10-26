@@ -6,14 +6,24 @@
             {{ error }}
         </p>
     {% endif %}
+
     <form method="POST">
-        <label for="title">タイトル:</label>
+        <label for="title">タイトル：</label>
         <input id="title" name="title" type="text"
                value="{{ it.title }}">
         <label for="body">本文:</label>
         <textarea id="body" name="body">{{ it.body }}</textarea>
         <input type="submit" value="保存" class="button">
     </form>
+
+    {% if it.id is not none %}
+    <form method="POST"
+        action="{{ url_for('delete_memo', id=it.id) }}"
+        onsubmit="return confirm('このメモを削除しますか？')">
+        <button type="submit" class="button delete-button">削除</button>
+    </form>
+    {% endif %}
+
     <a href="{{ url_for('index') }}" class="back-link">
         一覧へ戻る
     </a>
